@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Runner — The Daily Challenge</title>
+    <!-- We will link our custom stylesheet here -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main Container to hold the Wikipedia-style layout -->
+    <div id="mw-wrapper">
+        
+        <!-- Header / Top Bar: Mimicking Wikipedia's top navigation -->
+        <header id="mw-head">
+            <div class="top-bar-left">
+                <span class="game-logo"><strong>Wiki</strong> Runner</span>
+            </div>
+            <div class="top-bar-right">
+                <!-- Live Stats Tracking -->
+                <div class="stat-box">⏱️ Time: <span id="timer">00:00</span></div>
+                <div class="stat-box">🖱️ Clicks: <span id="click-count">0</span></div>
+                <div class="stat-box">↩️ Backtracks: <span id="backtrack-count">0</span></div>
+            </div>
+        </header>
+
+        <!-- Left Sidebar: For Game Info & Navigation Controls -->
+        <nav id="mw-panel">
+            <div class="portal">
+                <h3>Today's Mission</h3>
+                <div class="body">
+                    <p><strong>Start:</strong> <br><span id="start-node" class="target-word">Loading...</span></p>
+                    <p><strong>Target:</strong> <br><span id="target-node" class="target-word">Loading...</span></p>
+                </div>
+            </div>
+            <div class="portal">
+                <h3>Controls</h3>
+                <div class="body">
+                    <button id="back-btn" class="wiki-btn">↩️ Go Back</button>
+                    <button id="restart-btn" class="wiki-btn">🔄 Restart Run</button>
+                </div>
+            </div>
+            <div class="portal">
+                <h3>Personal Bests</h3>
+                <div class="body">
+                    <p>⏱️ Best Time: <span id="best-time">--</span></p>
+                    <p>🖱️ Best Clicks: <span id="best-clicks">--</span></p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area: Where the article content gets injected -->
+        <main id="content" class="mw-body">
+            <!-- This heading mimics Wikipedia's main article title -->
+            <h1 id="firstHeading" class="firstHeading">Welcome to Wiki Runner</h1>
+            
+            <!-- This is where our JavaScript will inject the actual Wikipedia text -->
+            <div id="bodyContent" class="vector-body">
+                <p>The game is initializing. Please wait a moment while we fetch today's challenge coordinates...</p>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Victory Modal / Overlay Screen -->
+    <div id="victory-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>🏆 Target Reached!</h2>
+            <p>Excellent navigating! You successfully reached the target page.</p>
+            <div class="final-stats">
+                <p>Your Time: <span id="final-time">0</span> seconds</p>
+                <p>Your Clicks: <span id="final-clicks">0</span></p>
+                <p>Your Backtracks: <span id="final-backtracks">0</span></p>
+            </div>
+            <button id="close-modal-btn" class="wiki-btn primary-btn">Play Again Tomorrow</button>
+        </div>
+    </div>
+
+    <!-- We will link our custom game script here -->
+    <script src="app.js"></script>
+</body>
+</html>
