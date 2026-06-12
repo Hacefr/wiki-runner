@@ -2,6 +2,7 @@
 const WikipediaAPI = {
     // Fetches text content from a Wikipedia page title
     async fetchArticle(pageTitle) {
+        // MUST point specifically to the english endpoint script file
         const baseUrl = "https://wikipedia.org";
         
         // Clean up formatting of the page title string
@@ -18,6 +19,7 @@ const WikipediaAPI = {
         });
 
         try {
+            // Re-assembling the complete verified URL path structure
             const response = await fetch(`${baseUrl}?${params.toString()}`);
             if (!response.ok) {
                 throw new Error("Network connection issue encountered.");
