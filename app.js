@@ -1,10 +1,10 @@
 // app.js - Main game engine loop and tracking mechanics
 const GameEngine = {
-    // Current daily match parameters configuration
+    // Current daily match parameters configuration (loaded dynamically)
     challenge: {
-        date: "2026-06-11",
-        start: "Banana",
-        target: "Space Shuttle"
+        date: "",
+        start: "",
+        target: ""
     },
 
     // Dynamic gameplay metric counters state tracking
@@ -43,7 +43,7 @@ const GameEngine = {
         };
 
         this.bindEvents();
-        this.startNewRun();
+        this.loadDailyChallenge();
     },
 
     // Attach interaction click handlers across system buttons
@@ -56,6 +56,48 @@ const GameEngine = {
 
         // Watch for link selections directly inside text articles
         this.dom.bodyContent.addEventListener("click", (e) => this.handleContentClick(e));
+    },
+
+    // Fetches the challenges list file and matches today's date
+    async loadDailyChallenge() {
+        this.dom.bodyContent.innerHTML = "<p>Syncing with the Wiki Runner challenge satellite...</p>";
+        
+        try {
+            const response = await fetch("challenges.json");
+            if (!response.ok) throw new Error("Could not load challenge database.");
+            
+            const challengesList = await response.json();
+            
+            // Get today's calendar date in YYYY-MM-DD format based on local time
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, "0");
+            const day = String(now.getDate()).padStart(2, "0");
+            const todayStr = `${year}-${month}-${day}`;
+
+            // Check if we have an entry for today, otherwise fall back to a default match
+            if (challengesList[todayStr]) {
+                this.challenge = {
+                    date: todayStr,
+                    start: challengesList[todayStr].start,
+                    target: challengesList[todayStr].target
+                };
+            } else {
+                // Default fallback backup if you forget to update the file
+                this.challenge = {
+                    date: todayStr,
+                    start: "Earth",
+                    target: "Inland Taipan"
+                };
+            }
+
+            // Start up the run now that our coordinates are ready
+            this.startNewRun();
+
+        } catch (error) {
+            console.error("Initialization error:", error);
+            this.dom.bodyContent.innerHTML = `<p style="color:red;">Failed to initialize game data: ${error.message}</p>`;
+        }
     },
 
     // Set up standard run data metrics and load initial data
@@ -105,7 +147,7 @@ const GameEngine = {
 
     // Download article content and load into framework container
     async navigateToPage(pageTitle, isLinkClick = true) {
-        this.dom.bodyContent.innerHTML = "<p>Loading Wikipedia transmission data stream...</p>";
+        this.dom.bodyContent.innerHTML = "<p>Downloading Wikipedia transmission data stream...</p>";
         this.dom.heading.textContent = pageTitle.replace(/_/g, " ");
 
         const rawHtml = await WikipediaAPI.fetchArticle(pageTitle);
@@ -191,7 +233,6 @@ const GameEngine = {
 
     // Halt systems, trigger score evaluation storage and open modal
     handleVictory() {
-        this.this = false;
         this.stopTimer();
         this.state.isActive = false;
 
