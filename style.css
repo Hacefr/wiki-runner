@@ -1,0 +1,262 @@
+/* ==========================================================================
+   WIKI RUNNER — COMPLETE STYLESHEET
+   Mimics the desktop Wikipedia vector skin theme.
+   ========================================================================== */
+
+/* Basic resets and setup */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Lato, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #202122;
+    background-color: #f8f9fa;
+}
+
+/* Main Wrapper Grid */
+#mw-wrapper {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 50px 1fr;
+    grid-template-areas: 
+        "head head"
+        "panel content";
+    min-height: 100vh;
+}
+
+/* Top Header Bar */
+#mw-head {
+    grid-area: head;
+    background-color: #ffffff;
+    border-bottom: 1px solid #a2a9b1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 10;
+}
+
+.game-logo {
+    font-size: 18px;
+    color: #000000;
+}
+
+.game-logo strong {
+    font-weight: bold;
+    color: #3636d1;
+}
+
+.top-bar-right {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-box {
+    background-color: #f8f9fa;
+    border: 1px solid #c8ccd1;
+    padding: 5px 12px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 14px;
+}
+
+/* Left Navigation Sidebar */
+#mw-panel {
+    grid-area: panel;
+    background-color: #f8f9fa;
+    padding: 20px 15px;
+    border-right: 1px solid #a2a9b1;
+}
+
+.portal {
+    margin-bottom: 25px;
+}
+
+.portal h3 {
+    font-size: 12px;
+    color: #54595d;
+    font-weight: normal;
+    border-bottom: 1px solid #c8ccd1;
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.portal .body {
+    font-size: 13px;
+    color: #202122;
+}
+
+.portal .body p {
+    margin-bottom: 10px;
+}
+
+.target-word {
+    display: inline-block;
+    margin-top: 2px;
+    font-weight: bold;
+    color: #202122;
+    background-color: #eaecf0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    word-break: break-all;
+}
+
+/* Wikipedia Buttons */
+.wiki-btn {
+    display: block;
+    width: 100%;
+    background-color: #f8f9fa;
+    color: #202122;
+    border: 1px solid #a2a9b1;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+    transition: background-color 0.1s, border-color 0.1s;
+}
+
+.wiki-btn:hover {
+    background-color: #ffffff;
+    border-color: #72777d;
+}
+
+.wiki-btn:active {
+    background-color: #eaecf0;
+    border-color: #202122;
+}
+
+/* Main Content Area */
+#content {
+    grid-area: content;
+    background-color: #ffffff;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.firstHeading {
+    font-family: "Linux Libertine", "Georgia", "Times", serif;
+    font-size: 28px;
+    font-weight: normal;
+    border-bottom: 1px solid #a2a9b1;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+/* Injected Wikipedia Style Overrides */
+.vector-body {
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 1000px;
+}
+
+/* Target blue links for Wikipedia links */
+.vector-body a {
+    color: #3636d1;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.vector-body a:hover {
+    text-decoration: underline;
+}
+
+/* Classes to style basic elements that come from Wikipedia API */
+.vector-body p {
+    margin-bottom: 0.5em;
+}
+
+.vector-body h2 {
+    font-family: "Linux Libertine", "Georgia", "Times", serif;
+    font-weight: normal;
+    border-bottom: 1px solid #a2a9b1;
+    margin-top: 1em;
+    margin-bottom: 0.25em;
+    font-size: 22px;
+}
+
+.vector-body h3 {
+    font-size: 18px;
+    margin-top: 1em;
+    margin-bottom: 0.25em;
+}
+
+/* Victory Overlay Screen */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal.hidden {
+    display: none !important;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 4px;
+    border: 1px solid #a2a9b1;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h2 {
+    font-family: "Linux Libertine", "Georgia", "Times", serif;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #202122;
+}
+
+.final-stats {
+    background-color: #f8f9fa;
+    border: 1px solid #c8ccd1;
+    padding: 15px;
+    margin: 20px 0;
+    text-align: left;
+    border-radius: 2px;
+}
+
+.final-stats p {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.final-stats p:last-child {
+    margin-bottom: 0;
+}
+
+.final-stats span {
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.primary-btn {
+    background-color: #3636d1;
+    color: #ffffff;
+    border-color: #3636d1;
+    font-weight: bold;
+}
+
+.primary-btn:hover {
+    background-color: #4444dd;
+    border-color: #4444dd;
+}
